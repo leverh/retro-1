@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import TerminalDisplay from './components/TerminalDisplay';
 import TerminalInput from './components/TerminalInput';
 import TerminalSidebar from './components/TerminalSidebar';
+import TerminalSignature from './components/TerminalSignature';
 import { getGameState, resetGameState } from './engine/gameState';
 import { processCommand } from './engine/commandParser';
 
@@ -58,6 +59,10 @@ Type "start" to begin your journey.
           quests={gameState.quests}
         />
       </div>
+      <TerminalSignature 
+        myName="{PixelSummit}" 
+        portfolioUrl="https://pixelsummit.dev/" 
+      />
     </div>
   );
 }

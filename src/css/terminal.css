@@ -1,46 +1,46 @@
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
-:root {
+/* :root { */
   /* Terminal color variables */
-  --terminal-bg: #0a0a0a;
+  /* --terminal-bg: #0a0a0a;
   --terminal-border: #333333;
   --terminal-text: #00ff00;
   --terminal-text-dim: #00aa00;
   --terminal-header: #222222;
   --terminal-input-bg: #000000;
   --terminal-sidebar-bg: #111111;
-  --terminal-panel-bg: #0f0f0f;
+  --terminal-panel-bg: #0f0f0f; */
   
   /* UI elements */
-  --terminal-close: #ff5f56;
+  /* --terminal-close: #ff5f56;
   --terminal-minimize: #ffbd2e;
-  --terminal-maximize: #27c93f;
+  --terminal-maximize: #27c93f; */
   
   /* Typography */
-  --terminal-font: 'VT323', monospace;
+  /* --terminal-font: 'VT323', monospace; */
   
   /* Spacing */
-  --space-xs: 0.4rem;
+  /* --space-xs: 0.4rem;
   --space-sm: 0.8rem;
   --space-md: 1.6rem;
-  --space-lg: 2.4rem;
+  --space-lg: 2.4rem; */
   
   /* Effects */
-  --terminal-glow: 0 0 5px rgba(0, 255, 0, 0.5);
-  --terminal-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-}
+  /* --terminal-glow: 0 0 5px rgba(0, 255, 0, 0.5);
+  --terminal-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); */
+/* } */
 
 :root {
   /* Terminal color variables - Amber Theme */
   --terminal-bg: #0a0a0a;
   --terminal-border: #333333;
-  --terminal-text: #ff9933;        /* Main amber text */
-  --terminal-text-dim: #cc7a29;    /* Slightly darker amber for secondary elements */
-  --terminal-text-bright: #ffb366; /* Brighter amber for highlights */
-  --terminal-header: #1a1410;      /* Slightly amber-tinted dark for headers */
+  --terminal-text: #ff9933;        
+  --terminal-text-dim: #cc7a29;    
+  --terminal-text-bright: #ffb366; 
+  --terminal-header: #1a1410;      
   --terminal-input-bg: #000000;
-  --terminal-sidebar-bg: #0f0c08;  /* Very subtle amber tint to black */
-  --terminal-panel-bg: #0d0a06;    /* Very subtle amber tint to black */
+  --terminal-sidebar-bg: #0f0c08;  
+  --terminal-panel-bg: #0d0a06;   
   
   /* UI elements */
   --terminal-close: #ff5f56;
@@ -70,12 +70,11 @@
   border: 1px solid var(--terminal-border);
   max-width: 1200px;
   margin: 2rem auto;
-  /* Remove overflow: hidden to allow full visibility of all elements */
   position: relative;
   height: 85vh;
   font-family: var(--terminal-font);
   color: var(--terminal-text);
-  flex-direction: row; /* Ensure proper flex direction */
+  flex-direction: row;
 }
 
 /* Terminal main area */
@@ -314,7 +313,7 @@
   overflow-y: auto;
 }
 
-/* Adjust panel heights for better distribution */
+/* Adjust panel heights */
 .sidebar-section.location-section {
   grid-row: 1;
 }
@@ -347,7 +346,6 @@
   min-height: 150px;
 }
 
-/* Auto adjust heights based on content */
 .terminal-sidebar {
   display: grid;
   grid-template-rows: minmax(120px, auto) minmax(100px, auto) minmax(100px, auto) 1fr;
@@ -372,7 +370,6 @@
   z-index: 10;
 }
 
-/* Make commands header look clickable */
 .help-section .section-header {
   cursor: pointer;
 }
@@ -414,7 +411,7 @@
   font-size: 1.6rem;
 }
 
-/* Indicator for scrollable content in the header */
+/* Indicator for scrollable content */
 .section-header.has-scroll h3::after {
   content: "▼";
   font-size: 0.8rem;
@@ -442,7 +439,7 @@
   text-transform: uppercase;
 }
 
-/* Consistent section-content styling */
+/* Section-content */
 .section-content {
   padding: 0.8rem;
   font-size: 1.6rem;
@@ -451,15 +448,13 @@
   position: relative;
   scrollbar-width: thin;
   transition: background-color 0.3s ease;
-  min-height: 60px; /* Ensure there's always some visible content */
+  min-height: 60px;
 }
 
-/* Help section content specific styling */
 .help-section .section-content {
-  padding: 0.8rem 0.5rem; /* Less padding horizontally for commands */
+  padding: 0.8rem 0.5rem;
 }
 
-/* Add a subtle glow animation to sections that have scrollable content */
 @keyframes scrollGlow {
   0%, 100% { box-shadow: inset 0 -8px 8px -8px rgba(0, 255, 0, 0.1); }
   50% { box-shadow: inset 0 -8px 8px -8px rgba(0, 255, 0, 0.2); }
@@ -544,7 +539,7 @@
   background-color: rgba(0, 255, 0, 0.1);
   padding: 0.1rem 0.3rem;
   border-radius: 3px;
-  display: inline-block; /* Ensure proper display */
+  display: inline-block;
 }
 
 /* Modal overlay */
@@ -735,11 +730,82 @@
   font-size: 1.8rem;
 }
 
+/* Terminal signature */
+
+.terminal-signature {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: var(--terminal-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: 6px;
+  width: 100%;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Scanline effect */
+.terminal-signature::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.05) 50%,
+    transparent 50%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.signature-text {
+  font-family: var(--terminal-font);
+  font-size: 1.6rem;
+  color: var(--terminal-text-dim);
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+.portfolio-link {
+  color: var(--terminal-text);
+  text-decoration: none;
+  border-bottom: 1px dashed var(--terminal-text-dim);
+  padding-bottom: 1px;
+  transition: all 0.2s ease;
+}
+
+.portfolio-link:hover {
+  color: var(--terminal-text-bright);
+  border-bottom: 1px solid var(--terminal-text);
+  text-shadow: 0 0 8px var(--terminal-glow);
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1em;
+  background-color: var(--terminal-text);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+
 /* Media queries */
 @media (max-width: 900px) {
   .terminal-container {
     flex-direction: column;
     height: auto;
+    align-items: center;
   }
   
   .terminal-sidebar {
@@ -805,7 +871,7 @@
 
 /* Visual effect for active scrolling */
 .section-content.scrolling {
-  background-color: rgba(255, 153, 51, 0.05); /* Very subtle amber background */
+  background-color: rgba(255, 153, 51, 0.05);
   transition: background-color 0.3s ease;
 }
 
@@ -841,22 +907,22 @@
 
 /* Modal header */
 .modal-header {
-  background-color: rgba(50, 30, 0, 0.2); /* Amber-tinted dark background */
+  background-color: rgba(50, 30, 0, 0.2);
 }
 
 .modal-header h2 {
-  text-shadow: 0 0 10px rgba(255, 153, 51, 0.5); /* Amber text shadow */
+  text-shadow: 0 0 10px rgba(255, 153, 51, 0.5);
 }
 
 /* Command categories */
 .command-category {
-  background-color: rgba(50, 30, 0, 0.1); /* Subtle amber-tinted background */
+  background-color: rgba(50, 30, 0, 0.1);
   border-left: 2px solid var(--terminal-text-dim);
 }
 
 /* Command syntax highlighting */
 .cmd {
-  background-color: rgba(255, 153, 51, 0.1); /* Subtle amber background */
+  background-color: rgba(255, 153, 51, 0.1);
 }
 
 /* Help button */
@@ -918,5 +984,5 @@
 }
 
 .character-speech {
-  color: #ffcc99; /* Lighter amber for dialogue */
+  color: #ffcc99;
 }
