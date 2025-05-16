@@ -1,0 +1,16 @@
+/* src/index.css */
+
+/* This file intentionally left minimal, as we're using modular CSS files */
+/* Base styling is in base.css */
+
+/* Any global resets can go here */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Ensure the app takes up the full height of the viewport */
+html, body, #root {
+  height: 100%;
+}

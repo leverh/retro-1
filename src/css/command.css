@@ -1,0 +1,86 @@
+/* Styles for the command input component */
+
+.command-input {
+  width: 100%;
+}
+
+.command-input form {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: var(--color-command-bg);
+  border: 0.1rem solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 0 var(--space-sm);
+  flex-grow: 1;
+}
+
+.prompt {
+  color: var(--color-accent);
+  font-weight: bold;
+  margin-right: var(--space-xs);
+  padding-top: 0.2rem;
+}
+
+.command-input input {
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  padding: var(--space-sm) 0;
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+.command-input input:focus {
+  outline: none;
+}
+
+.command-input button {
+  padding: var(--space-sm) var(--space-md);
+  font-weight: bold;
+  min-width: 8rem;
+}
+
+/* Command history for mobile views */
+.command-history {
+  margin-top: var(--space-sm);
+  background-color: var(--color-command-bg);
+  border: 0.1rem solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  max-height: 15rem;
+  overflow-y: auto;
+}
+
+.command-history h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-xs);
+  font-size: 1.4rem;
+  color: var(--color-primary);
+}
+
+.history-item {
+  margin-bottom: var(--space-xs);
+  font-size: 1.4rem;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.history-item:hover {
+  color: var(--color-accent);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .command-input form {
+    flex-direction: column;
+  }
+  
+  .command-input button {
+    width: 100%;
+  }
+}

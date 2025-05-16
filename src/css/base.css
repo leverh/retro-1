@@ -1,0 +1,199 @@
+/* Base styles for the entire application */
+
+:root {
+  /* Color variables */
+  --color-bg: #0a0e14;
+  --color-text: #dcdcdc;
+  --color-primary: #7d5da1;
+  --color-secondary: #58306e;
+  --color-accent: #ff7e7a;
+  --color-accent-light: #ffa27e;
+  --color-border: #3b3f4b;
+  --color-panel-bg: #171c2a;
+  --color-command-bg: #292f3e;
+  
+  /* Typography */
+  --font-main: 'Courier New', monospace;
+  --font-headers: 'Book Antiqua', 'Palatino Linotype', serif;
+  
+  /* Spacing */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.4rem;
+  --space-xl: 3.2rem;
+  
+  /* Borders */
+  --border-radius: 0.4rem;
+  --border-width: 0.2rem;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 300ms ease;
+}
+
+/* Set base font size to 10px for easy rem conversion */
+html {
+  font-size: 10px;
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-main);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-headers);
+  margin-top: 0;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3.2rem;
+  color: var(--color-accent);
+  text-shadow: 0 0 0.8rem rgba(255, 126, 122, 0.3);
+}
+
+h2 {
+  font-size: 2.4rem;
+  color: var(--color-accent-light);
+}
+
+h3 {
+  font-size: 2rem;
+  color: var(--color-primary);
+  border-bottom: 0.2rem solid var(--color-border);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+h4 {
+  font-size: 1.8rem;
+  color: var(--color-accent-light);
+}
+
+p {
+  margin: 0 0 var(--space-sm) 0;
+}
+
+ul, ol {
+  padding-left: var(--space-md);
+  margin: 0 0 var(--space-sm) 0;
+}
+
+button {
+  font-family: var(--font-main);
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  border: none;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+button:hover {
+  background-color: var(--color-primary);
+}
+
+button:focus {
+  outline: 0.2rem solid var(--color-accent);
+}
+
+input[type="text"] {
+  font-family: var(--font-main);
+  background-color: var(--color-command-bg);
+  color: var(--color-text);
+  border: 0.1rem solid var(--color-border);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--border-radius);
+  width: 100%;
+  font-size: 1.6rem;
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 0.2rem rgba(125, 93, 161, 0.3);
+}
+
+/* Game container layout */
+.game-container {
+  display: grid;
+  grid-template-columns: 1fr 25rem;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "main sidebar"
+    "input sidebar";
+  height: 100vh;
+  max-width: 120rem;
+  margin: 0 auto;
+  padding: var(--space-sm);
+  gap: var(--space-md);
+}
+
+.game-header {
+  grid-area: header;
+  text-align: center;
+  padding: var(--space-sm) 0;
+}
+
+.game-main {
+  grid-area: main;
+  overflow-y: auto;
+  background-color: var(--color-panel-bg);
+  border: 0.2rem solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+  height: 100%;
+}
+
+.game-sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sidebar-panel {
+  background-color: var(--color-panel-bg);
+  border: 0.2rem solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-sm);
+}
+
+.command-area {
+  grid-area: input;
+  margin-top: var(--space-sm);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .game-container {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "header"
+      "main"
+      "input"
+      "sidebar";
+    height: auto;
+    min-height: 100vh;
+  }
+  
+  .game-main {
+    height: 50vh;
+  }
+}

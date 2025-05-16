@@ -1,0 +1,84 @@
+/* src/css/inventory.css */
+/* Styles for the inventory display component */
+
+.inventory-display {
+  padding: var(--space-sm);
+  background-color: var(--color-panel-bg);
+  border-radius: var(--border-radius);
+}
+
+.inventory-display h3 {
+  color: var(--color-primary);
+  margin-top: 0;
+  font-family: var(--font-headers);
+  font-size: 1.8rem;
+  border-bottom: 0.1rem solid var(--color-border);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.empty-inventory {
+  font-style: italic;
+  color: var(--color-text);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.inventory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 25rem;
+  overflow-y: auto;
+}
+
+.inventory-item {
+  padding: var(--space-xs) 0;
+  border-bottom: 0.1rem solid rgba(59, 63, 75, 0.3);
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  color: var(--color-accent-light);
+  font-weight: bold;
+  margin-bottom: var(--space-xs);
+}
+
+.item-description {
+  font-size: 1.4rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.inventory-help {
+  margin-top: var(--space-sm);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  opacity: 0.7;
+  border-top: 0.1rem solid var(--color-border);
+  padding-top: var(--space-xs);
+}
+
+/* Scrollbar styling */
+.inventory-list::-webkit-scrollbar {
+  width: 0.6rem;
+}
+
+.inventory-list::-webkit-scrollbar-track {
+  background: var(--color-panel-bg);
+  border-radius: var(--border-radius);
+}
+
+.inventory-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.inventory-list::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary);
+}

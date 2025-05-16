@@ -1,0 +1,132 @@
+/* Styles for the game display component */
+
+.game-display {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  padding-right: var(--space-sm);
+}
+
+.message-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.message {
+  line-height: 1.6;
+}
+
+.command {
+  color: var(--color-accent);
+  font-family: var(--font-main);
+  font-weight: bold;
+  padding-left: var(--space-sm);
+  border-left: 0.2rem solid var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.narration {
+  color: var(--color-text);
+}
+
+.location-name {
+  color: var(--color-accent-light);
+  font-family: var(--font-headers);
+  font-size: 2.4rem;
+  margin-bottom: var(--space-md);
+  text-align: center;
+  text-shadow: 0 0 0.5rem rgba(255, 162, 126, 0.3);
+  letter-spacing: 0.1rem;
+}
+
+.section-title {
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-sm);
+  border-bottom: 0.1rem solid var(--color-border);
+  padding-bottom: var(--space-xs);
+}
+
+.list-item {
+  padding-left: var(--space-md);
+  position: relative;
+}
+
+.list-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  background-color: var(--color-accent);
+  border-radius: 50%;
+}
+
+.dialogue {
+  margin-left: var(--space-md);
+  margin-bottom: var(--space-md);
+  position: relative;
+}
+
+.dialogue::before {
+  content: '"';
+  position: absolute;
+  left: -1.5rem;
+  top: -0.5rem;
+  color: var(--color-accent);
+  font-size: 3rem;
+  opacity: 0.5;
+}
+
+.character-name {
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+.character-speech {
+  font-style: italic;
+}
+
+.hint {
+  color: var(--color-accent-light);
+  font-style: italic;
+  padding-left: var(--space-lg);
+  font-size: 1.4rem;
+}
+
+/* Special formatting for various content types */
+.quest-update {
+  background-color: rgba(125, 93, 161, 0.2);
+  padding: var(--space-sm);
+  border-left: 0.3rem solid var(--color-primary);
+  margin: var(--space-sm) 0;
+}
+
+.item-found {
+  background-color: rgba(255, 162, 126, 0.2);
+  padding: var(--space-sm);
+  border-left: 0.3rem solid var(--color-accent-light);
+  margin: var(--space-sm) 0;
+}
+
+/* Scrollbar styling */
+.game-display::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.game-display::-webkit-scrollbar-track {
+  background: var(--color-bg);
+  border-radius: var(--border-radius);
+}
+
+.game-display::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: var(--border-radius);
+}
+
+.game-display::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-primary);
+}

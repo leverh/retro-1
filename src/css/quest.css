@@ -1,0 +1,96 @@
+/* src/css/quest.css */
+/* Styles for the quest display component */
+
+.quest-display {
+  padding: var(--space-sm);
+  background-color: var(--color-panel-bg);
+  border-radius: var(--border-radius);
+}
+
+.quest-display h3 {
+  color: var(--color-primary);
+  margin-top: 0;
+  font-family: var(--font-headers);
+  font-size: 1.8rem;
+  border-bottom: 0.1rem solid var(--color-border);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+}
+
+.no-quests {
+  font-style: italic;
+  color: var(--color-text);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.quest-item {
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 0.1rem solid rgba(59, 63, 75, 0.5);
+}
+
+.quest-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.quest-item h4 {
+  color: var(--color-accent-light);
+  font-size: 1.6rem;
+  margin-bottom: var(--space-xs);
+}
+
+.quest-description {
+  font-size: 1.4rem;
+  margin-bottom: var(--space-sm);
+  color: var(--color-text);
+  opacity: 0.9;
+}
+
+.quest-steps {
+  margin-left: var(--space-sm);
+}
+
+.quest-step {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--space-xs);
+  padding: var(--space-xs);
+  border-radius: var(--border-radius);
+  background-color: rgba(59, 63, 75, 0.2);
+}
+
+.quest-step.completed {
+  opacity: 0.7;
+}
+
+.step-status {
+  display: inline-block;
+  margin-right: var(--space-sm);
+  color: var(--color-accent);
+  font-weight: bold;
+}
+
+.quest-step.completed .step-status {
+  color: var(--color-primary);
+}
+
+.step-description {
+  flex-grow: 1;
+  font-size: 1.4rem;
+}
+
+.quest-step.completed .step-description {
+  text-decoration: line-through;
+}
+
+.quest-help {
+  margin-top: var(--space-sm);
+  font-size: 1.2rem;
+  color: var(--color-text);
+  opacity: 0.7;
+  border-top: 0.1rem solid var(--color-border);
+  padding-top: var(--space-xs);
+}
