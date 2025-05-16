@@ -10,6 +10,9 @@ export function executeCommand(command, params) {
   let response;
 
   switch (command) {
+    case 'start':
+      response = startGame(state);
+      break;
     case 'look':
       response = lookAround(state);
       break;
@@ -47,22 +50,25 @@ export function executeCommand(command, params) {
   return getGameState();
 }
 
-function lookAround(state) {
+function startGame(state) {
+  return "Your adventure begins. You stand in the center of a small village, the sounds of daily life all around you.";
+}
 
+function lookAround(state) {
   const location = getLocation(state.currentLocation);
   
   if (!location) {
     return "Error: Current location not found.";
   }
-
+  
   let description = location.longDescription;
-
+  
   if (location.firstVisit) {
     updateLocation(state.currentLocation, { firstVisit: false });
   }
-
+  
   let response = `${location.name}\n\n${description}\n\n`;
-
+  
   if (location.exits && Object.keys(location.exits).length > 0) {
     response += "Exits: ";
     response += Object.keys(location.exits)
@@ -76,7 +82,7 @@ function lookAround(state) {
   } else {
     response += "There are no obvious exits.\n\n";
   }
-
+  
   if (location.items && location.items.length > 0) {
     response += "You can see: ";
     response += location.items
@@ -84,7 +90,7 @@ function lookAround(state) {
       .join(', ');
     response += "\n\n";
   }
-
+  
   if (location.characters && location.characters.length > 0) {
     response += "Present: ";
     response += location.characters
@@ -100,15 +106,15 @@ function goDirection(direction, state) {
   if (!direction) {
     return "Go where? Please specify a direction (north, south, east, west, up, down, in, out).";
   }
-
+  
   const location = getLocation(state.currentLocation);
   
   if (!location) {
     return "Error: Current location not found.";
   }
-
+  
   direction = direction.toLowerCase().trim();
-
+  
   const directionMapping = {
     'n': 'north',
     'e': 'east',
@@ -127,13 +133,13 @@ function goDirection(direction, state) {
     'outside': 'out',
     'out': 'out'
   };
-
+  
   const standardDirection = directionMapping[direction];
   
   if (!standardDirection) {
     return `I don't understand that direction: "${direction}".`;
   }
-
+  
   if (location.exits && location.exits[standardDirection]) {
     const newLocationId = location.exits[standardDirection];
     const newLocation = getLocation(newLocationId);
@@ -141,11 +147,11 @@ function goDirection(direction, state) {
     if (!newLocation) {
       return `Error: Destination location "${newLocationId}" not found.`;
     }
-
+    
     updateGameState({ currentLocation: newLocationId });
-
+    
     checkQuestProgressOnMovement(state, newLocationId);
-
+    
     return `You go ${direction}.\n\n${lookAround(getGameState())}`;
   } else {
     return `You can't go ${direction} from here.`;
@@ -158,7 +164,7 @@ function checkQuestProgressOnMovement(state, newLocationId) {
     completeQuestStep('mainQuest', 'enter_forest');
     addToHistory('Quest updated: You have entered the forest.');
   }
-
+  
   if (newLocationId === 'cave_entrance_chamber' && 
       state.quests.mainQuest.steps.find(step => step.id === 'enter_caves' && !step.completed)) {
     completeQuestStep('mainQuest', 'enter_caves');
@@ -314,7 +320,6 @@ function takeItem(target, state) {
   return item.onTake || `You take the ${item.name}.`;
 }
 
-// Check inventory
 function checkInventory(state) {
   if (!state.inventory || state.inventory.length === 0) {
     return "Your inventory is empty.";

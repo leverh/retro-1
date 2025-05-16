@@ -1,5 +1,3 @@
-/* Styles for the command input component */
-
 .command-input {
   width: 100%;
 }
@@ -74,7 +72,7 @@
   color: var(--color-accent);
 }
 
-/* Responsive adjustments */
+/* Media Queries */
 @media (max-width: 480px) {
   .command-input form {
     flex-direction: column;

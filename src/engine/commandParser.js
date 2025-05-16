@@ -4,8 +4,8 @@ import { items } from '../data/items';
 import { characters } from '../data/characters';
 import { executeCommand } from './gameActions';
 
-// Command patterns
 const commandPatterns = {
+  start: /^(?:start|begin|play)$/i,
   look: /^look$/i,
   go: /^(?:go|move|travel|walk)(?:\s+(?:to|towards|toward|into))?\s+(.+)$/i,
   examine: /^(?:examine|inspect|check|look at|look)\s+(.+)$/i,
@@ -46,6 +46,11 @@ export function processCommand(inputText) {
 }
 
 export const commandHelp = [
+  { 
+    command: 'start', 
+    description: 'Begin your adventure',
+    examples: ['start'] 
+  },
   { 
     command: 'look', 
     description: 'Look around at your current location',

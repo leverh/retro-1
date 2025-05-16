@@ -1,16 +1,31 @@
-/* src/index.css */
-
-/* This file intentionally left minimal, as we're using modular CSS files */
-/* Base styling is in base.css */
-
-/* Any global resets can go here */
-* {
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #111;
+  color: #ffffff;
+  font-family: 'VT323', monospace;
 }
 
-/* Ensure the app takes up the full height of the viewport */
 html, body, #root {
   height: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

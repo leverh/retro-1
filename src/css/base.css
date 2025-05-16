@@ -1,5 +1,3 @@
-/* Base styles for the entire application */
-
 :root {
   /* Color variables */
   --color-bg: #0a0e14;
@@ -180,7 +178,7 @@ input[type="text"]:focus {
   margin-top: var(--space-sm);
 }
 
-/* Responsive adjustments */
+/* Media queries */
 @media (max-width: 768px) {
   .game-container {
     grid-template-columns: 1fr;

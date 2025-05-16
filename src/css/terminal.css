@@ -1,0 +1,922 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+:root {
+  /* Terminal color variables */
+  --terminal-bg: #0a0a0a;
+  --terminal-border: #333333;
+  --terminal-text: #00ff00;
+  --terminal-text-dim: #00aa00;
+  --terminal-header: #222222;
+  --terminal-input-bg: #000000;
+  --terminal-sidebar-bg: #111111;
+  --terminal-panel-bg: #0f0f0f;
+  
+  /* UI elements */
+  --terminal-close: #ff5f56;
+  --terminal-minimize: #ffbd2e;
+  --terminal-maximize: #27c93f;
+  
+  /* Typography */
+  --terminal-font: 'VT323', monospace;
+  
+  /* Spacing */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.4rem;
+  
+  /* Effects */
+  --terminal-glow: 0 0 5px rgba(0, 255, 0, 0.5);
+  --terminal-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+:root {
+  /* Terminal color variables - Amber Theme */
+  --terminal-bg: #0a0a0a;
+  --terminal-border: #333333;
+  --terminal-text: #ff9933;        /* Main amber text */
+  --terminal-text-dim: #cc7a29;    /* Slightly darker amber for secondary elements */
+  --terminal-text-bright: #ffb366; /* Brighter amber for highlights */
+  --terminal-header: #1a1410;      /* Slightly amber-tinted dark for headers */
+  --terminal-input-bg: #000000;
+  --terminal-sidebar-bg: #0f0c08;  /* Very subtle amber tint to black */
+  --terminal-panel-bg: #0d0a06;    /* Very subtle amber tint to black */
+  
+  /* UI elements */
+  --terminal-close: #ff5f56;
+  --terminal-minimize: #ffbd2e;
+  --terminal-maximize: #27c93f;
+  
+  /* Typography */
+  --terminal-font: 'VT323', monospace;
+  
+  /* Spacing */
+  --space-xs: 0.4rem;
+  --space-sm: 0.8rem;
+  --space-md: 1.6rem;
+  --space-lg: 2.4rem;
+  
+  /* Effects */
+  --terminal-glow: 0 0 5px rgba(255, 153, 51, 0.5);
+  --terminal-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* Terminal container */
+.terminal-container {
+  display: flex;
+  background-color: var(--terminal-bg);
+  border-radius: 8px;
+  box-shadow: var(--terminal-shadow);
+  border: 1px solid var(--terminal-border);
+  max-width: 1200px;
+  margin: 2rem auto;
+  /* Remove overflow: hidden to allow full visibility of all elements */
+  position: relative;
+  height: 85vh;
+  font-family: var(--terminal-font);
+  color: var(--terminal-text);
+  flex-direction: row; /* Ensure proper flex direction */
+}
+
+/* Terminal main area */
+.terminal-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Terminal display */
+.terminal-display {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: var(--terminal-bg);
+  overflow: hidden;
+}
+
+/* Terminal header */
+.terminal-header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--terminal-header);
+  border-bottom: 1px solid var(--terminal-border);
+  min-height: 30px; /* Ensure minimum height */
+}
+
+.terminal-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-right: 1rem;
+}
+
+.control {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.control.close {
+  background-color: var(--terminal-close);
+}
+
+.control.minimize {
+  background-color: var(--terminal-minimize);
+}
+
+.control.maximize {
+  background-color: var(--terminal-maximize);
+}
+
+.terminal-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #888;
+}
+
+/* Terminal content */
+.terminal-content {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  background-color: var(--terminal-bg);
+  line-height: 1.5;
+  font-size: 1.8rem;
+}
+
+/* Add scanline effect */
+.terminal-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    transparent 50%,
+    transparent 100%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.2;
+  z-index: 2;
+}
+
+/* Add CRT effect */
+.terminal-content::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  opacity: 0.8;
+  z-index: 1;
+}
+
+/* Terminal lines */
+.terminal-line {
+  margin-bottom: 0.5rem;
+  text-shadow: var(--terminal-glow);
+}
+
+.terminal-line.command {
+  color: var(--terminal-text);
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.terminal-line.intro {
+  color: var(--terminal-text);
+  text-align: center;
+  margin: 1rem 0;
+}
+
+/* Location name formatting */
+.location-name {
+  color: var(--terminal-text);
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+/* Different line types */
+.exits-line, .items-line, .characters-line {
+  color: var(--terminal-text-dim);
+  margin-top: 0.5rem;
+}
+
+.dialogue-line {
+  margin: 0.5rem 0 1rem 1rem;
+}
+
+.character-name {
+  color: var(--terminal-text);
+  font-weight: bold;
+}
+
+.character-speech {
+  color: #aaffaa;
+  font-style: italic;
+}
+
+/* Typing cursor */
+.cursor {
+  display: inline-block;
+  width: 0.8rem;
+  height: 1.8rem;
+  background-color: var(--terminal-text);
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Terminal footer */
+.terminal-footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background-color: var(--terminal-header);
+  border-top: 1px solid var(--terminal-border);
+  font-size: 1.4rem;
+  color: #888;
+}
+
+.terminal-info {
+  padding: 0 1rem;
+}
+
+/* Terminal input */
+.terminal-input {
+  padding: 1rem;
+  background-color: var(--terminal-input-bg);
+  border-top: 1px solid var(--terminal-border);
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.prompt {
+  color: var(--terminal-text);
+  margin-right: 0.5rem;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.terminal-input input {
+  background-color: transparent;
+  border: none;
+  color: var(--terminal-text);
+  font-family: var(--terminal-font);
+  font-size: 2rem;
+  width: 100%;
+  padding: 0.5rem 0;
+  caret-color: var(--terminal-text);
+  text-shadow: var(--terminal-glow);
+}
+
+.terminal-input input:focus {
+  outline: none;
+}
+
+/* Terminal sidebar */
+.terminal-sidebar {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  height: 100%;
+  gap: 1.5rem;
+  padding: 1rem;
+  width: 300px;
+  background-color: var(--terminal-sidebar-bg);
+  border-left: 1px solid var(--terminal-border);
+  overflow-y: auto;
+}
+
+/* Adjust panel heights for better distribution */
+.sidebar-section.location-section {
+  grid-row: 1;
+}
+
+.sidebar-section.inventory-section {
+  grid-row: 2;
+}
+
+.sidebar-section.quest-section {
+  grid-row: 3;
+}
+
+.sidebar-section.help-section {
+  grid-row: 4;
+}
+
+/* Sidebar sections */
+.sidebar-section {
+  background-color: var(--terminal-panel-bg);
+  border: 1px solid var(--terminal-border);
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100px;
+}
+
+/* Help section specific styling */
+.sidebar-section.help-section {
+  min-height: 150px;
+}
+
+/* Auto adjust heights based on content */
+.terminal-sidebar {
+  display: grid;
+  grid-template-rows: minmax(120px, auto) minmax(100px, auto) minmax(100px, auto) 1fr;
+  height: 100%;
+  gap: 1rem;
+  padding: 1rem;
+  width: 300px;
+  background-color: var(--terminal-sidebar-bg);
+  border-left: 1px solid var(--terminal-border);
+  overflow-y: auto;
+}
+
+/* Section header with dropdown */
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: var(--terminal-header);
+  border-bottom: 1px solid var(--terminal-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Make commands header look clickable */
+.help-section .section-header {
+  cursor: pointer;
+}
+
+.help-section .section-header:hover {
+  background-color: #222;
+}
+
+/* Dropdown arrow styling */
+.dropdown-arrow {
+  margin-left: auto;
+  color: var(--terminal-text);
+  font-size: 0.8rem;
+  transition: transform 0.3s ease;
+}
+
+.dropdown-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+/* Collapsed state */
+.section-content.collapsed {
+  display: none;
+}
+
+/* Section header text */
+.section-header h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--terminal-text);
+  font-weight: normal;
+  text-transform: uppercase;
+  position: relative;
+  flex: 1;
+}
+
+.section-icon {
+  margin-right: 0.5rem;
+  font-size: 1.6rem;
+}
+
+/* Indicator for scrollable content in the header */
+.section-header.has-scroll h3::after {
+  content: "▼";
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  vertical-align: super;
+  animation: blink 1.5s infinite;
+  color: var(--terminal-text);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.section-icon {
+  margin-right: 0.5rem;
+  font-size: 1.6rem;
+}
+
+.section-header h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  color: var(--terminal-text);
+  font-weight: normal;
+  text-transform: uppercase;
+}
+
+/* Consistent section-content styling */
+.section-content {
+  padding: 0.8rem;
+  font-size: 1.6rem;
+  overflow-y: auto;
+  flex: 1;
+  position: relative;
+  scrollbar-width: thin;
+  transition: background-color 0.3s ease;
+  min-height: 60px; /* Ensure there's always some visible content */
+}
+
+/* Help section content specific styling */
+.help-section .section-content {
+  padding: 0.8rem 0.5rem; /* Less padding horizontally for commands */
+}
+
+/* Add a subtle glow animation to sections that have scrollable content */
+@keyframes scrollGlow {
+  0%, 100% { box-shadow: inset 0 -8px 8px -8px rgba(0, 255, 0, 0.1); }
+  50% { box-shadow: inset 0 -8px 8px -8px rgba(0, 255, 0, 0.2); }
+}
+
+.section-content.scrollable {
+  animation: scrollGlow 2s ease-in-out infinite;
+}
+
+/* Location section */
+.location-section .location-name {
+  font-size: 1.8rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.subsection-title {
+  color: var(--terminal-text-dim);
+  margin-bottom: 0.3rem;
+  font-size: 1.4rem;
+}
+
+.exits-list, .characters-list, .items-list {
+  margin-bottom: 1rem;
+}
+
+.exit-direction {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--terminal-text-dim);
+  padding: 0.2rem 0.5rem;
+  margin-right: 0.5rem;
+  border-radius: 3px;
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* Inventory section */
+.empty-inventory, .no-quests {
+  color: var(--terminal-text-dim);
+  font-style: italic;
+}
+
+.inventory-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.inventory-item {
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed rgba(0, 255, 0, 0.2);
+}
+
+.inventory-item:last-child {
+  border-bottom: none;
+}
+
+/* Quest section */
+.quest-item {
+  margin-bottom: 1rem;
+}
+
+.quest-title {
+  margin-bottom: 0.3rem;
+}
+
+.quest-progress {
+  font-size: 1.4rem;
+  color: var(--terminal-text-dim);
+}
+
+/* Command hints styling */
+.command-hint {
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.cmd {
+  color: var(--terminal-text);
+  font-weight: bold;
+  background-color: rgba(0, 255, 0, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  display: inline-block; /* Ensure proper display */
+}
+
+/* Modal overlay */
+.commands-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+/* Modal container */
+.commands-modal {
+  background-color: var(--terminal-bg);
+  border: 2px solid var(--terminal-text);
+  border-radius: 6px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 0 30px rgba(0, 255, 0, 0.3), inset 0 0 20px rgba(0, 255, 0, 0.05);
+  animation: modalFadeIn 0.3s ease;
+  position: relative;
+}
+
+/* Modal gradient overlay */
+.commands-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(0, 255, 0, 0.05) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Modal animation */
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* Modal header */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 2px solid var(--terminal-border);
+  background-color: rgba(0, 50, 0, 0.2);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Modal title */
+.modal-header h2 {
+  margin: 0;
+  color: var(--terminal-text);
+  font-size: 2.2rem;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Modal close button */
+.close-button {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--terminal-text-dim);
+  color: var(--terminal-text);
+  font-size: 2.4rem;
+  cursor: pointer;
+  padding: 0.2rem 1.2rem;
+  line-height: 1;
+  transition: all 0.2s;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+}
+
+.close-button:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+  color: var(--terminal-text);
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.3);
+}
+
+.close-button:active {
+  transform: scale(0.95);
+}
+
+/* Modal content */
+.modal-content {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+/* Command categories */
+.command-category {
+  margin-bottom: 2rem;
+  background-color: rgba(0, 50, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 4px;
+  border-left: 2px solid var(--terminal-text-dim);
+}
+
+.command-category h3 {
+  color: var(--terminal-text);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--terminal-border);
+  padding-bottom: 0.5rem;
+  font-size: 1.8rem;
+}
+
+.command-category ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.command-category li {
+  margin-bottom: 0.8rem;
+  line-height: 1.6;
+  display: flex;
+  align-items: flex-start;
+}
+
+.command-category li::before {
+  content: ">";
+  color: var(--terminal-text-dim);
+  margin-right: 0.8rem;
+  font-weight: bold;
+}
+
+/* Command syntax highlighting */
+.cmd {
+  color: var(--terminal-text);
+  font-weight: bold;
+  background-color: rgba(0, 255, 0, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+/* Help button that opens the modal */
+.help-button {
+  background-color: rgba(0, 255, 0, 0.1);
+  border: 1px solid var(--terminal-text-dim);
+  color: var(--terminal-text);
+  padding: 0.8rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--terminal-font);
+  font-size: 1.6rem;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  margin-top: 0.8rem;
+  outline: none;
+  text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.help-button:hover {
+  background-color: rgba(0, 255, 0, 0.2);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+.help-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+.button-icon {
+  font-size: 1.8rem;
+}
+
+/* Media queries */
+@media (max-width: 900px) {
+  .terminal-container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .terminal-sidebar {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--terminal-border);
+  }
+  
+  .terminal-display {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .commands-modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+}
+
+/* Terminal line styling */
+.terminal-line {
+  margin-bottom: 0.5rem;
+  text-shadow: var(--terminal-glow);
+}
+
+/* Cursor animation */
+.cursor {
+  display: inline-block;
+  width: 0.8rem;
+  height: 1.8rem;
+  background-color: var(--terminal-text);
+  vertical-align: middle;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+/* Scrollable content marker */
+.scrollable::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to top, var(--terminal-panel-bg) 10%, transparent);
+  pointer-events: none;
+}
+
+/* Section header indicator for scrollable content */
+.section-header.has-scroll h3::after {
+  content: "▼";
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+  vertical-align: super;
+  animation: blink 1.5s infinite;
+  color: var(--terminal-text);
+}
+
+/* Visual effect for active scrolling */
+.section-content.scrolling {
+  background-color: rgba(255, 153, 51, 0.05); /* Very subtle amber background */
+  transition: background-color 0.3s ease;
+}
+
+.section-content.scrolling::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-text);
+  box-shadow: 0 0 8px var(--terminal-text);
+}
+
+/* Commands Modal */
+.commands-modal {
+  background-color: var(--terminal-bg);
+  border: 2px solid var(--terminal-text);
+  border-radius: 6px;
+  width: 90%;
+  max-width: 700px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 0 30px rgba(255, 153, 51, 0.3), inset 0 0 20px rgba(255, 153, 51, 0.05);
+  animation: modalFadeIn 0.3s ease;
+  position: relative;
+}
+
+.commands-modal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 0%, rgba(255, 153, 51, 0.05) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Modal header */
+.modal-header {
+  background-color: rgba(50, 30, 0, 0.2); /* Amber-tinted dark background */
+}
+
+.modal-header h2 {
+  text-shadow: 0 0 10px rgba(255, 153, 51, 0.5); /* Amber text shadow */
+}
+
+/* Command categories */
+.command-category {
+  background-color: rgba(50, 30, 0, 0.1); /* Subtle amber-tinted background */
+  border-left: 2px solid var(--terminal-text-dim);
+}
+
+/* Command syntax highlighting */
+.cmd {
+  background-color: rgba(255, 153, 51, 0.1); /* Subtle amber background */
+}
+
+/* Help button */
+.help-button {
+  background-color: rgba(255, 153, 51, 0.1);
+  border: 1px solid var(--terminal-text-dim);
+  text-shadow: 0 0 5px rgba(255, 153, 51, 0.3);
+}
+
+.help-button:hover {
+  background-color: rgba(255, 153, 51, 0.2);
+  box-shadow: 0 0 10px rgba(255, 153, 51, 0.3);
+}
+
+/* Close button */
+.close-button {
+  background-color: rgba(255, 153, 51, 0.1);
+}
+
+.close-button:hover {
+  background-color: rgba(255, 153, 51, 0.2);
+  box-shadow: 0 0 8px rgba(255, 153, 51, 0.3);
+}
+
+/* Exit directions in location panel */
+.exit-direction {
+  background-color: rgba(255, 153, 51, 0.1);
+  border-left: 2px solid var(--terminal-text-dim);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-text-dim);
+  border: 1px solid rgba(255, 153, 51, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--terminal-text);
+}
+
+/* Custom scrollbar for terminal sections */
+.section-content::-webkit-scrollbar-thumb {
+  background-color: var(--terminal-text-dim);
+  border: 1px solid rgba(255, 153, 51, 0.1);
+}
+
+.section-content::-webkit-scrollbar-thumb:hover {
+  background-color: var(--terminal-text);
+}
+
+/* Progress indicators */
+.quest-progress {
+  color: var(--terminal-text-dim);
+}
+
+/* Character dialogue styling */
+.character-name {
+  color: var(--terminal-text-bright);
+}
+
+.character-speech {
+  color: #ffcc99; /* Lighter amber for dialogue */
+}

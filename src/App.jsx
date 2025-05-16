@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
-import CommandInput from './components/CommandInput';
-import GameDisplay from './components/GameDisplay';
-import InventoryDisplay from './components/InventoryDisplay';
-import LocationDisplay from './components/LocationDisplay';
-import QuestDisplay from './components/QuestDisplay';
+import TerminalDisplay from './components/TerminalDisplay';
+import TerminalInput from './components/TerminalInput';
+import TerminalSidebar from './components/TerminalSidebar';
 import { getGameState, resetGameState } from './engine/gameState';
 import { processCommand } from './engine/commandParser';
 
-import './css/base.css';
+import './css/terminal.css';
 
 function App() {
   const [gameState, setGameState] = useState(getGameState());
@@ -19,19 +17,16 @@ function App() {
     setGameState(initialState);
     
     const introMessage = `
-    # The Forgotten Artifact
+Welcome to the Realm of Eldoria.
 
-    Welcome to Eldervale, a peaceful village nestled between ancient forests and misty mountains. You've come seeking adventure, and whispers of a powerful artifact hidden in the mountains have drawn your attention.
-    
-    Your journey begins in the village square. Explore, talk to the locals, and uncover the secrets of this land.
-    
-    Type 'help' to see a list of available commands.
-    `;
+Type "help" for available commands.
+
+Type "start" to begin your journey.
+`;
     
     setGameState(prevState => ({
       ...prevState,
       gameHistory: [
-        ...prevState.gameHistory,
         { message: introMessage, type: 'intro' }
       ]
     }));
@@ -45,37 +40,24 @@ function App() {
   };
 
   return (
-    <div className="game-container">
-      <header className="game-header">
-        <h1>The Forgotten Artifact</h1>
-      </header>
-      
-      <main className="game-main">
-        <GameDisplay messages={gameState.gameHistory} />
-      </main>
-      
-      <div className="command-area">
-        <CommandInput 
-          onSubmitCommand={handleCommandSubmit} 
-          historyIndex={historyIndex}
-          setHistoryIndex={setHistoryIndex}
-          commandHistory={commandHistory}
+    <div className="app-container">
+      <div className="terminal-container">
+        <div className="terminal-main">
+          <TerminalDisplay messages={gameState.gameHistory} />
+          <TerminalInput 
+            onSubmitCommand={handleCommandSubmit} 
+            historyIndex={historyIndex}
+            setHistoryIndex={setHistoryIndex}
+            commandHistory={commandHistory}
+          />
+        </div>
+        
+        <TerminalSidebar 
+          currentLocation={gameState.currentLocation}
+          inventory={gameState.inventory}
+          quests={gameState.quests}
         />
       </div>
-      
-      <aside className="game-sidebar">
-        <div className="sidebar-panel">
-          <LocationDisplay currentLocation={gameState.currentLocation} />
-        </div>
-        
-        <div className="sidebar-panel">
-          <InventoryDisplay inventory={gameState.inventory} />
-        </div>
-        
-        <div className="sidebar-panel">
-          <QuestDisplay quests={gameState.quests} />
-        </div>
-      </aside>
     </div>
   );
 }
