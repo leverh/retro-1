@@ -30,7 +30,7 @@
   --transition-normal: 300ms ease;
 }
 
-/* Set base font size to 10px for easy rem conversion */
+/* Font size to 10px for easy rem conversion */
 html {
   font-size: 10px;
   box-sizing: border-box;

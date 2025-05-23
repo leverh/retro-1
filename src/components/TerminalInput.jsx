@@ -1,19 +1,17 @@
 // src/components/TerminalInput.jsx
-// This component creates a terminal-style input field
+// Tterminal-style input field
 
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import '../css/terminal.css';
 
 const TerminalInput = ({ onSubmitCommand, historyIndex, setHistoryIndex, commandHistory }) => {
   const [command, setCommand] = useState('');
   const inputRef = useRef(null);
 
-  // Focus the input field when the component mounts
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
-  // Handle command submission
   const handleSubmit = (e) => {
     e.preventDefault();
     
@@ -21,10 +19,9 @@ const TerminalInput = ({ onSubmitCommand, historyIndex, setHistoryIndex, command
     
     onSubmitCommand(command);
     setCommand('');
-    setHistoryIndex(-1); // Reset history index after submitting
+    setHistoryIndex(-1);
   };
 
-  // Handle arrow key navigation through command history
   const handleKeyDown = (e) => {
     // Up arrow
     if (e.key === 'ArrowUp' && commandHistory.length > 0) {

@@ -18,6 +18,10 @@ A retro terminal-styled text adventure game built with React and Vite, with an a
 - **Interactive UI**: Responsive sidebar displaying location details, inventory, and quest progress
 - **Retro Aesthetic**: Authentic terminal styling with scanlines, glow effects, and vintage typography
 
+## Live Link
+
+[Live link](https://chipper-granita-da4a17.netlify.app/) 
+
 ## Getting Started
 
 ### Prerequisites
@@ -129,7 +133,7 @@ You can easily extend the game world:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License. Would be nice to get an attribution but ya'll do what you wanna do anyway 🤷‍♂️ 
 
 ## Acknowledgments
 

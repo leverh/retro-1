@@ -1,5 +1,5 @@
 // src/components/TerminalDisplay.jsx
-// This component creates the terminal-like display with typing effect
+// Terminal-like display with typing effect
 
 import { useState, useEffect, useRef } from 'react';
 import '../css/terminal.css';
@@ -33,7 +33,7 @@ const TerminalDisplay = ({ messages, typingSpeed = 10 }) => {
       return;
     }
     
-    // If it's a command (user input), add it immediately without typing effect
+    // If it's a command (user input), it's added immediately - no typing effect
     if (currentMessage.type === 'command') {
       setDisplayedContent(prev => [...prev, { ...currentMessage, fullyTyped: true }]);
       setCurrentMessageIndex(prev => prev + 1);
@@ -94,27 +94,22 @@ const TerminalDisplay = ({ messages, typingSpeed = 10 }) => {
     return (
       <div key={index} className="terminal-line">
         {lines.map((line, lineIndex) => {
-          // Check if this is a location name header (first line and not empty)
           if (lineIndex === 0 && line.trim() && lines.length > 1 && !line.includes(':')) {
             return <div key={lineIndex} className="location-name">[{line}]</div>;
           }
           
-          // Check if line mentions "exits"
           if (line.toLowerCase().includes('exits:')) {
             return <div key={lineIndex} className="exits-line">{line}</div>;
           }
           
-          // Check if line mentions "you can see"
           if (line.toLowerCase().includes('you can see:')) {
             return <div key={lineIndex} className="items-line">{line}</div>;
           }
           
-          // Check if line mentions "present"
           if (line.toLowerCase().includes('present:')) {
             return <div key={lineIndex} className="characters-line">{line}</div>;
           }
           
-          // Check if this is character dialogue
           if (line.includes(': "') && line.endsWith('"')) {
             const [character, dialogue] = line.split(': "');
             return (
@@ -125,7 +120,6 @@ const TerminalDisplay = ({ messages, typingSpeed = 10 }) => {
             );
           }
           
-          // Regular line
           return line ? <div key={lineIndex}>{line}</div> : null;
         })}
       </div>
